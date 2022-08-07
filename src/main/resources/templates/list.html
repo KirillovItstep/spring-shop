@@ -1,0 +1,89 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jewelries</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@200;300;400;600&family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container" id="container">
+
+</div>
+<script>
+    var htmlTemplate = `
+    <div class="card">
+        <div class="card-body">
+            <img id="img" src="gdfdgf">
+            <div class="icon-slider-wrapper">
+                <ul class="icon-slider" aria-label="Product available in metals" id="color">
+                    <li class="icon platinum" aria-current="true">
+                        <div class="outer-circle M-Platinum"></div>
+                    </li>
+                    <li class="icon 14kWhiteGold" aria-current="false">
+                        <div class="outer-circle M-White"></div>
+                    </li>
+                    <li class="icon 14kYellowGold" aria-current="false">
+                        <div class="outer-circle M-Yellow"></div>
+                    </li>
+                    <li class="icon 14kRoseGold" aria-current="false">
+                        <div class="outer-circle M-Rose"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="offer-name">
+                <div id="name"></div>
+            </div>
+            <div class="price" itemprop="offers" itemtype="https://schema.org/Offer">
+                <div class="offer-price now-original-price">
+                    <div class="price-display" id="price">$23</div>
+                </div>
+                <div class="offer-price now-price">Now
+                    <div class="price-display" id="priceNew">$1,312.50</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+
+    var colors = ['Platinum','White','Yellow','Rose'];
+
+    var requestOptions={
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+fetch('http://localhost:8080/api/jewelries', requestOptions)
+    .then(response=>response.json())
+    .then(result=>addRows(result))
+    .catch(error=>console.log('Get jewelries is wrong'));
+
+function addRows(response){
+    for (let i=0; i<response.length; i++){
+
+        let html = $(""+htmlTemplate);
+        $("#img", html).attr("src", 'data:image/png;base64,'+response[i].image);
+        $("#name", html).html(response[i].name);
+
+        let price = response[i].price/100;
+        $("#price", html).html('$'+price.toFixed(2).toLocaleString("en-US"));
+
+        let priceNew = response[i].priceNew/100;
+        $("#priceNew", html).html('$'+priceNew.toFixed(2).toLocaleString("en-US"));
+
+        let color = response[i].color;
+        let colorIndex = colors.indexOf(color)+1;
+        $(`#color li:nth-child(${colorIndex})`, html).addClass('selected');
+
+        //console.log(response[i].name);
+        $('#container').append(html);
+    }
+}
+</script>
+</body>
+</html>

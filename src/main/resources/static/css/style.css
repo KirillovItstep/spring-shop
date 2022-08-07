@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+body{
+    font-family: Anek Gujarati,Arial,Helvetica,sans-serif;
+    font-size: 16px;
+}
+.card{
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    padding: 8px;
+    margin:8px;
+    cursor: pointer;
+    width:25%;
+}
+
+.card:hover{
+    transform: scale(1.0);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.card h3{
+    font-weight: 600;
+}
+
+.card img{
+    max-height: 120px;
+}
+
+@media(max-width: 990px){
+    .card{
+        margin: 8px;
+    }
+}
+
+.icon-slider-wrapper {
+    position: relative;
+    width: 100px;
+    padding: 5px 0 10px;
+}
+
+.icon-slider {
+    max-width: 90px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.icon-slider .icon.selected {
+    border-bottom: 1px solid #0024d6;
+}
+
+.icon-slider .icon {
+    height: 16px;
+    margin-right: 8px;
+}
+
+.icon-slider .icon .outer-circle {
+    position: relative;
+    top: 0;
+    height: 10px;
+    width: 10px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.outer-circle.M-Platinum {
+    background-color: #757575;
+}
+.outer-circle.M-White {
+    background-color: #d5d7d8;
+}
+.outer-circle.M-Yellow {
+    background-color: #f1ca8b;
+}
+.outer-circle.M-Rose {
+    background-color: #e2a79f;
+}
+.screen-reader-only {
+    border: 0;
+    clip: #000;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.offer-price.now-price {
+    color: #0024d6;
+}
+
+.rating-stars-wrapper .rating-stars {
+    font-size: 12.25px;
+    letter-spacing: em(4);
+    overflow: hidden;
+    position: relative;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 20px;
+}
+
+[class*=" icon-"], [class^=icon-] {
+    font-family: icon-font!important;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container{
+    display:flex;
+    margin-left:0;
+}

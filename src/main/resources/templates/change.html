@@ -1,0 +1,84 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jewelries</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@200;300;400;600&family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container" id="container">
+    <table class="table table-striped w-auto">
+        <tr>
+            <th>Id</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Price new</th>
+            <th>Color</th>
+            <th>Actions</th>
+        </tr>
+        <tbody id="data">
+
+        </tbody>
+    </table>
+</div>
+<script>
+
+    var colors = ['Platinum','White','Yellow','Rose'];
+
+    var requestOptions={
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+fetch('http://localhost:8080/api/jewelries', requestOptions)
+    .then(response=>response.json())
+    .then(result=>addRows(result))
+    .catch(error=>console.log('Get jewelries is wrong'));
+
+function addRows(response){
+    for (let i=0; i<response.length; i++){
+
+        let tr = $('<tr>');
+
+        let tdId = $('<td>');
+        let id = response[i].id;
+        tdId.html(id);
+        tr.append(tdId);
+
+        let tdImage = $('<td>');
+        let src = 'data:image/png;base64,'+response[i].image;
+        tdImage.html(`<img src="${src}" style="width:50px; height:50px">`);
+        tr.append(tdImage);
+
+        let tdName = $('<td>');
+        tdName.html(response[i].name);
+        tr.append(tdName);
+
+        let tdPrice = $('<td>');
+        let price = response[i].price / 100;
+        tdPrice.html('$' + price.toFixed(2).toLocaleString('en-US'));
+        tr.append(tdPrice);
+
+        let tdPriceNew = $('<td>');
+        let priceNew = response[i].priceNew / 100;
+        tdPriceNew.html('$' + priceNew.toFixed(2).toLocaleString('en-US'));
+        tr.append(tdPriceNew);
+
+        let tdColor = $('<td>');
+        let color = response[i].color;
+        tdColor.html(color);
+        tr.append(tdColor);
+
+        $('#data').append(tr);
+    }
+}
+</script>
+</body>
+</html>
